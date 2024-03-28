@@ -1,5 +1,4 @@
 import time
-from icecream import ic
 class Car:
 
     #constructor
@@ -19,19 +18,17 @@ class Car:
         self.signalLftStatus = False
         self.hazardLightStatus = False
         
-
-    #toggle engine method here
     def engine(self):
         if (self.engineStatus == False):
             self.engineStatus = True
-            print("Engine is powered ON!")
+            print("\nEngine is powered ON!")
         else:
             if (self.currentSpeed > 0):
                 print("\nIt is dangerous to turn of the engine while moving")
                 print("Stop the car first before turing the ENGINE OFF")
             else:
                 self.engineStatus = False
-                print("Engine is powered OFF!")
+                print("\nEngine is powered OFF!")
     
     def accelerate(self):
         if (self.engineStatus == True):
@@ -56,7 +53,6 @@ class Car:
                     print("Car now stopped")
 
     def headlight(self):
-        #engine must be activated first
         if (self.engineStatus == False):
             print("\n Engine is OFF")
             print("\n Activate the ENGINE first")
@@ -72,7 +68,6 @@ class Car:
                 print("Headlights are OFF!")
 
     def wiper(self):
-        #engine must be activated first
         if (self.engineStatus == False):
             print("\n Engine is OFF")
             print("\n Activate the ENGINE first")
@@ -110,9 +105,7 @@ class Car:
             print("\nThe car turned left")
             print("You are now heading ", self.directionConversion(self.currentDirectionDegrees))
             #may onting deceleration dapat
-        ic(self.currentDirection)
-        ic(self.currentDirectionDegrees)
-
+        
     def steerRight(self):
         if (self.currentSpeed <= 0):
             print("The car is stationary")
@@ -122,31 +115,85 @@ class Car:
             print("\nThe car turned right")
             print("You are now heading", self.directionConversion(self.currentDirectionDegrees))
             #may onting deceleration dapat
-        ic(self.currentDirection)
-        ic(self.currentDirectionDegrees)
-    
+        
     def signalRight(self):
-        if(self.signalRhtStatus == False):
-            self.signalRhtStatus = True
-            print("Right turn signal ACTIVE")
+        if (self.engineStatus == False):
+            print("\n Engine is OFF")
+            print("\n Activate the ENGINE first")
         else:
-            self.signalRhtStatus = False
-            print("Right turn signal INACTIVE")
+            if(self.signalRhtStatus == False):
+                self.signalRhtStatus = True
+                print("Right turn signal ACTIVE")
+            else:
+                self.signalRhtStatus = False
+                print("Right turn signal INACTIVE")
 
     def signalLeft(self):
-        if(self.signalLftStatus == False):
-            self.signalLftStatus = True
-            print("Left turn signal Active")
+        if (self.engineStatus == False):
+            print("\n Engine is OFF")
+            print("\n Activate the ENGINE first")
         else:
-            self.signalLftStatus = False
-            print("Left turn signal INACTIVE")
+            if(self.signalLftStatus == False):
+                self.signalLftStatus = True
+                print("Left turn signal ACTIVE")
+            else:
+                self.signalLftStatus = False
+                print("Left turn signal INACTIVE")
     
     def hazardLight(self):
-        return
+        if (self.engineStatus == False):
+            print("\n Engine is OFF")
+            print("\n Activate the ENGINE first")
+        else:
+            if(self.hazardLightStatus == False):
+                self.hazardLightStatus = True
+                print("Hazard light is ACTIVE")
+            else:
+                self.hazardLightStatus = False
+                print("Hazard ligt is INACTIVE")
+
+    def carCurrentStatus(self):
+        if(self.engineStatus == True):
+            print("\nEngine: ACTIVE")
+        else:
+            print("\nEngine: INACTIVE")
+        
+        print("Current car speed: ",self.currentSpeed, " kph")
+        
+        print("Current car direction: ",self.currentDirection)
+        
+        if(self.headlightStatus == True):
+            print("Headlights: ACTIVE")
+        else:
+            print("Headlights: INACTIVE")
+
+        if(self.signalLftStatus == True):
+            print("Left turn signal: ACTIVE")
+        else:
+            print("Left turn signal: INACTIVE")
+
+        if(self.signalRhtStatus == True):
+            print("Right turn signal: ACTIVE")
+        else:
+            print("Right turn signal: INACTIVE")
+
+        if(self.wiperStatus == True):
+            print("Wipers: ACTIVE")
+        else:
+            print("Wipers: INACTIVE")
+
+        if(self.hazardLightStatus == True):
+            print("Hazard lights: ACTIVE")
+        else:
+            print("Hazard lights: INACTIVE")
+
 
 class Assistance:
+    def welcome(self):
+        print("WELCOME TO PYTHON DRIVING SIMULATOR!")
+
     def instructions(self):
-        print("\n Here are the following commands for the car:")
+        print("\nHere are the following commands for the car:")
         print("\neng: Toggle car ENGINE")
         print("acc: ACCELERATE")
         print("brk: BRAKE")
@@ -155,20 +202,21 @@ class Assistance:
         print("slr: Toggle RIGHT TURN SIGNAL")
         print("sll: Toggle LEFT TURN SIGNAL")
         print("wip: Toggle WIPERS")
-        print("hdl: Toggle HEADLIGTS")
+        print("hdl: Toggle HEADLIGHTS")
         print("hzl: Toggle HAZARD LIGHTS")
         print("quit: QUIT the simulation")
         print("\nOther commands:")
         print("help: show all commands")
         print("status: show all current information about your car")
-    def carStatus(self):
-        return
+
+    def quit(self):
+        print("\nThank you for driving :)\n")
 
 #class externalconditions
-# the path leads straight ahead
+# the path leads straight ahead echu
     
 
-myCar = Car("Mitsubishi", "Mirage G4", "Titanium Gray", 100, 15) 
+myCar = Car("Mitsubishi", "Mirage G4", "Titanium Gray", 100, 10) 
 print("CAR DETAILS: ")
 print("Car Make: " , myCar.make)
 print("Car Model: " , myCar.model)
@@ -176,15 +224,11 @@ print("Color: " , myCar.color)
 print("Top Speed: " , myCar.topSpeed , " km/h")
 print("Acceleration: " , myCar.acceleration , "kph/s")
 
-
-#welcome to car driving simulation echu chu
-#instructions: eng, acc, brk, lft, rht, wip, hdl, slr, sll , hzl
-#for instruction: help
-#for car status: status
 assist = Assistance()
+assist.welcome()
 assist.instructions()
 while True:
-    userInput = input("Please select an action: ")
+    userInput = input("\nPlease select an action: ")
     if(userInput == "eng"):
         myCar.engine()
     elif(userInput == "acc"):
@@ -196,9 +240,9 @@ while True:
     elif(userInput == "rht"):
         myCar.steerRight()
     elif(userInput == "sll"):
-        myCar.signalLftStatus()
+        myCar.signalLeft()
     elif(userInput == "slr"):
-        myCar.signalRhtStatus()
+        myCar.signalRight()
     elif(userInput == "wip"):
         myCar.wiper()
     elif(userInput == "hdl"):
@@ -206,43 +250,14 @@ while True:
     elif(userInput == "hzl"):
         myCar.hazardLight()
     elif(userInput == "quit"):
-        return
+        assist.quit()
+        break
     elif(userInput == "help"):
         assist.instructions()
     elif(userInput == "status"):
-        assist.carStatus()
+        myCar.carCurrentStatus()
     else:
-        break
-
-
-"""
-while True:
-    print("\n Operation Options: ")
-    print("1. Toggle Engine")
-    print("2. Accelerate")
-    print("3. Brake")
-    print("4. Left Steer")
-    print("5. Right Steer")
-    print("6. Toggle Headlights")
-    print("7. Toggle Wipers")
-
-    userInput = int(input("Please select an operation number: "))
-    if (userInput == 1):
-        myCar.engine()
-    elif(userInput == 2):
-        myCar.accelerate()
-    elif(userInput == 3):
-        myCar.brake()
-    elif(userInput == 4):
-        myCar.steerLeft()
-    elif(userInput == 5):
-        myCar.steerRight()
-    elif(userInput == 6):
-        myCar.headlight()
-    elif(userInput == 7):
-        myCar.wiper()
-    else:
-        break
-"""
-
+        print("\nCommand unrecognized.")
+        print("type 'help' if you need help")
+        continue
 
