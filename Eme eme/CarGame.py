@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 
 class Car:
     #constructor
@@ -189,6 +190,17 @@ class Car:
 
 
 class Assistance:
+    def __init__ (self):
+        self.globalTime = datetime.now()
+    
+    def dateTime(self):
+        militaryTime = self.globalTime.strftime("%H:%M") #Military time
+        timeNow = self.globalTime.strftime("%I:%M:%S %p")
+        dateNow = self.globalTime.strftime("%b %d, %Y")
+        print(militaryTime)
+        print(timeNow)
+        print(dateNow)
+
     def welcome(self):
         print("WELCOME TO PYTHON DRIVING SIMULATOR!")
 
@@ -211,6 +223,9 @@ class Assistance:
 
     def quit(self):
         print("\nThank you for driving :)\n")
+    
+    
+
 
 #class externalconditions
 # the path leads straight ahead echu
@@ -258,6 +273,8 @@ while True:
         assist.instructions()
     elif(userInput == "status"):
         myCar.carCurrentStatus()
+    elif(userInput == "time"):
+        assist.dateTime()
     else:
         print("\nCommand unrecognized.")
         print("type 'help' if you need help")
