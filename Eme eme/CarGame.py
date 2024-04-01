@@ -195,7 +195,7 @@ class Assistance:
     
     def dateTime(self):
         militaryTime = self.globalTime.strftime("%H:%M") #Military time
-        timeNow = self.globalTime.strftime("%I:%M:%S %p")
+        timeNow = self.globalTime.strftime("%I:%M:%S %p") #12hr time with seconds
         dateNow = self.globalTime.strftime("%b %d, %Y")
         print(militaryTime)
         print(timeNow)
