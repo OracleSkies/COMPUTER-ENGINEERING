@@ -223,7 +223,9 @@ class Assistance:
 
     def quit(self):
         print("\nThank you for driving :)\n")
-    
+
+class ExternalCondition:
+    print("")
     
 
 
