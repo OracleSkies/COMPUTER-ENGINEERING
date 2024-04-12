@@ -13,7 +13,7 @@ class Dog(Animal):
 
     def eat(self): #overrides eat() of Animal()
         print("I love eating bones")
-        super().eat() 
+        super().eat() #calls out the eat() of Animal()
 
 class Cat(Animal):
     def displayName(self):
