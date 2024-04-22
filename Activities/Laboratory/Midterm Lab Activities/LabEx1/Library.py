@@ -6,7 +6,6 @@ class Library:
     def __init__(self,filename, mode = "r"):
         self.file = open(filename,mode) 
         self.books = []
-        BookType(title = "",author = "",bookId = "",subject = "",shelf = "")
     
     def closeFile(self):
         self.file.close()
@@ -14,6 +13,7 @@ class Library:
     def addBook(self, title, author, bookId, subject, shelf,filename = "library.txt"):
         file = open(filename, "a")
         file.write(f"{title},{author},{bookId},{subject},{shelf}\n")
+        
         self.books.append(BookType(title,author,bookId,subject,shelf))
         print("book successfully added")
         
@@ -25,8 +25,20 @@ class Library:
         file.close()
 
 
-    def deleteBook(self,filename):
-        pass
+    def deleteBook(self,filename,lineNumber):
+
+        with open(filename,'r') as file:
+            lines = file.readlines()
+        newLines = []
+
+        for i, line in enumerate(lines, start=1):
+            if i != lineNumber and line.strip() != line.strip():  # Handle line number or content matching
+                newLines.append(line)
+
+        with open(filename, "w") as file:
+            file.writelines(newLines)
+    
+
     def borrowBook(self):
         pass
     def returnBook(self):

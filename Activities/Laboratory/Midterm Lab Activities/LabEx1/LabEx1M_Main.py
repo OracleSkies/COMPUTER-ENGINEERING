@@ -15,7 +15,7 @@ def transactionMenu():
                 library.addBook(title,author,bookId,subject,shelf)
                 
             case "delete":
-                library.deleteBook()
+                library.deleteBook("library.txt",3)
             case "borrow":
                 library.borrowBook()
             case "return":
