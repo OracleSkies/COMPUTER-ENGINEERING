@@ -1,5 +1,6 @@
 from Book import BookType
 from icecream import ic
+import os
 
 
 class Library:
@@ -13,7 +14,6 @@ class Library:
     def addBook(self, title, author, bookId, subject, shelf,filename = "library.txt"):
         file = open(filename, "a")
         file.write(f"{title},{author},{bookId},{subject},{shelf}\n")
-        
         self.books.append(BookType(title,author,bookId,subject,shelf))
         print("book successfully added")
         
@@ -24,19 +24,12 @@ class Library:
             self.books.append(BookType(title, author, bookId, subject, shelf))
         file.close()
 
-
-    def deleteBook(self,filename,lineNumber):
-
-        with open(filename,'r') as file:
-            lines = file.readlines()
-        newLines = []
-
-        for i, line in enumerate(lines, start=1):
-            if i != lineNumber and line.strip() != line.strip():  # Handle line number or content matching
-                newLines.append(line)
-
-        with open(filename, "w") as file:
-            file.writelines(newLines)
+    def deleteBook(self,bookId):
+        for book in self.books:
+            if book.getBookId() == bookId:
+                self.books.remove(book)
+                print("remove successful")
+        return
     
 
     def borrowBook(self):
@@ -47,7 +40,7 @@ class Library:
     def displayAllBooks(self):
         def displayLoop():
             for book in self.books:
-                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.bookId}, Book Type: {book.subject}, Shelf: {book.shelf}")     
+                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.getBookId()}, Book Type: {book.subject}, Shelf: {book.shelf}") 
         if not self.books: 
             self.loadBook("library.txt")
             displayLoop()
@@ -65,27 +58,27 @@ class Library:
                         print("These are the books in Shelf A")
                         for book in self.books:
                             if book.shelf == "A":
-                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.bookId}, Book Type: {book.subject}")
+                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.getBookId()}, Book Type: {book.subject}")
                     case "b":
                         print("These are the books in Shelf B")
                         for book in self.books:
                             if book.shelf == "B":
-                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.bookId}, Book Type: {book.subject}")
+                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.getBookId()}, Book Type: {book.subject}")
                     case "c":
                         print("These are the books in Shelf C")
                         for book in self.books:
                             if book.shelf == "C":
-                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.bookId}, Book Type: {book.subject}")
+                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.getBookId()}, Book Type: {book.subject}")
                     case "d":
                         print("These are the books in Shelf D")
                         for book in self.books:
                             if book.shelf == "D":
-                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.bookId}, Book Type: {book.subject}")
+                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.getBookId()}, Book Type: {book.subject}")
                     case "e":
                         print("These are the books in Shelf E")
                         for book in self.books:
                             if book.shelf == "E":
-                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.bookId}, Book Type: {book.subject}")
+                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.getBookId()}, Book Type: {book.subject}")
                     case "exit":
                         break
                     case _:
@@ -97,10 +90,53 @@ class Library:
             displayLoop()
     
     def displayAllSubjects(self):
-        pass
+        def displayLoop():
+            while True:
+                subject = input("Please select the subject of the books you want to see: ")
+                match subject:
+                    case "English":
+                        print("These are the books in the English subject.")
+                        for book in self.books:
+                            if book.subject == "English":
+                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.getBookId()}, Shelf: {book.shelf}") 
+                    case "Math":
+                        print("These are the books in the Math subject.")
+                        for book in self.books:
+                            if book.subject == "Math":
+                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.getBookId()}, Shelf: {book.shelf}") 
+                    case "Filipino":
+                        print("These are the books in the Filipino subject.")
+                        for book in self.books:
+                            if book.subject == "Filipino":
+                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.getBookId()}, Shelf: {book.shelf}") 
+                    case "Science":
+                        print("These are the books in the Science subject.")
+                        for book in self.books:
+                            if book.subject == "Science":
+                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.getBookId()}, Shelf: {book.shelf}") 
+                    case "History":
+                        print("These are the books in the History subject.")
+                        for book in self.books:
+                            if book.subject == "History":
+                                print(f"Title: {book.title}, Author: {book.author}, Book Id number: {book.getBookId()}, Shelf: {book.shelf}") 
+        if not self.books:
+            self.loadBook("library.txt")
+            displayLoop()
+        else:
+            displayLoop()
+
     def displayById(self):
-        pass
-        
+        def displayLoop():
+            bookId = input("Please Enter the book ID: ")
+            print(f"These are the book with the book ID: {bookId}")
+            for book in self.books:
+                if book.getBookId() == bookId:
+                    print(f"Title: {book.title}, Author: {book.author}, Book Type: {book.subject}, Shelf: {book.shelf}")
+        if not self.books:
+            self.loadBook("library.txt")
+            displayLoop()
+        else:
+            displayLoop()
     def chooseType(self):
         types = ["English", "Math", "Filipino", "Science","History"]
         while True:
