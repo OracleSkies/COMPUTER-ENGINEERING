@@ -30,7 +30,6 @@ class Library:
                 self.books.remove(book)
                 print("remove successful")
         return
-    
 
     def borrowBook(self):
         pass
@@ -137,6 +136,7 @@ class Library:
             displayLoop()
         else:
             displayLoop()
+
     def chooseType(self):
         types = ["English", "Math", "Filipino", "Science","History"]
         while True:
