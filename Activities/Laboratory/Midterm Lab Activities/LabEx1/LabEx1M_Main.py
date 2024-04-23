@@ -3,8 +3,10 @@ from Library import Library
 #syntax: from [py filename] import [class in py file]
 
 def transactionMenu():
+    print("WELCOME TO THE LIBRARY!")
+    library.help()
     while True:
-        choice = input("Enter your choice: ")
+        choice = input("Enter your action: ")
         match choice:
             case "add":
                 title = input("Enter book title: ")
@@ -18,28 +20,38 @@ def transactionMenu():
                 bookId = input("Enter the Book ID that you want to delete: ")
                 library.deleteBook(bookId)
             case "borrow":
-                library.borrowBook()
+                bookId = input("Enter the Book ID that you want to borrow: ")
+                library.borrowBook(bookId)
             case "return":
-                library.returnBook()
-            case "display all":
+                bookId = input("Enter the Book ID that you want to return: ")
+                library.returnBook(bookId)
+            case "show all":
                 library.displayAllBooks()
-            case "display shelf":
+            case "show shelf":
                 library.displayShelves()
-            case "show subject":
+            case "show by subject":
                 library.displayAllSubjects()
-            case "find book by ID":
+            case "show by ID":
                 library.displayById()
+            case "help":
+                library.help()
             case"exit":
                 break
             case _:
                 print("Invalid action. Please try again")
 
+
+
 if os.path.exists("library.txt"):
     library = Library("library.txt","r")
+    library.loadBook("library.txt")
     transactionMenu()
 else:
     file = open("library.txt","x")
     file.close()
+    library = Library("library.txt","r")
+    library.loadBook("library.txt")
+    transactionMenu()
 
 
 
