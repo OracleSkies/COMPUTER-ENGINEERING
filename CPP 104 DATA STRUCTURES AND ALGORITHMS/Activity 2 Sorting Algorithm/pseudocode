@@ -1,0 +1,22 @@
+Begin
+   function bubbleSort(array)
+       lengthArray = length of array
+       for i from 0 to lengthArray
+           for j from i + 1 to lengthArray 
+               if array[i] > array[j]
+                   swap array[i] and array[j]
+End
+
+Begin
+    Funcion bubbleSort
+        Pass In: array
+        lengthArray = length of array
+        For i = 0 To lengthArray
+            For j = i+1 to lengthArray
+                IF array[i] > array[j] THEN
+                    swap array[i] and array[j]
+                EndIF
+            EndFor
+        EndFor
+        Pass Out: Nothing
+End
