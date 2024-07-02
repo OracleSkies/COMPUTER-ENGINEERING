@@ -1,0 +1,44 @@
+Algorithm
+> Divide and Conquer
+    - dividing problem to smaller problems to solve the problem easily
+    - combining the solutions to get the desired output
+
+    > Divide
+        - divide the given problem into sub problems using recursion
+    > Conquer
+        - Solve the smaller sub problmes 
+    > Combine
+
+Sorting Algorithms
+    > Bubble Sort
+        - comparison based algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in wrong order.
+
+
+def bubblesort()
+    n = len(arr)
+    for i in range(n)
+        for j in range(0, n-i-1)
+
+
+    > Selection Sort
+        - selects the smallest element from the unsorted region and swaps it with the leftmost unsorted element, moving the boundary between sorted and unsorted regions. 
+
+def selectionSort(arr)
+    n = len(arr)
+    for i in range(n)
+        min_idx = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        for[i], arr[min_idx] = arr[min_idx], arr[i]
+    return arr
+
+    > Insertion Sort
+        - Insertion sort builds the final sorted array one item at a time.  
+
+
+    > Merge Sort (halfhalf sort)
+        - divides the list into halves, recursively sorts each half, and then merges the sorted halves.
+     
+    > Quick Sort 
+        - selecting a pivot element from the list and partitioning the other elements into two sub arrays according to whether they are less than or greater than the pivot.
