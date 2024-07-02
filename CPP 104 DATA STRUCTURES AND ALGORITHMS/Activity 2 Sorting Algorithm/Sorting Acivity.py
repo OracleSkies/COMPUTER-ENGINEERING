@@ -35,8 +35,8 @@ def mergeSort(array):
     lenghtArray = len(array)
     if lenghtArray > 3:
         mid = lenghtArray // 2
-        
 
+print()
 
 #selectionSort(array3)
 #insertionSort(array3)
