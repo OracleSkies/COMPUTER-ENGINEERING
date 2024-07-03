@@ -61,14 +61,16 @@ def mergeSort(array):
     return array
     
 def quickSort(array):
+    print(array)
     lengthArray = len(array)
     if lengthArray <= 1:
         return array
-    else:
-        pivot = array[0]
-        left = [x for x in array[1:] if x <= pivot]
-        right = [x for x in array[1:] if x > pivot]
-        return quickSort(left) + [pivot] + quickSort(right)
+    
+    pivot = array[0]
+    left = [x for x in array[1:] if x <= pivot]
+    right = [x for x in array[1:] if x > pivot]
+    return quickSort(left) + [pivot] + quickSort(right)
+    
     
 array1 = [3,1,2]
 array2 = [5,3,8,1,2]
@@ -78,6 +80,22 @@ array5 = [20,18,15,16,14,13,12,10,9,7,8,6,5,4,3,2,1,11,19,17]
 
 #selectionSort(array3)
 #insertionSort(array3)
+
 print(array3)
-quickSort(array3)
+insertionSort(array3)
 print(array3)
+
+'''def quick(array):
+    lengthArray = len(array)
+
+    if lengthArray <= 1:
+        return array
+    pivot = array[0]
+    left = [x for x in array if x < pivot]
+    right = [x for x in array if x > pivot]
+    mid = [x for x in array if x == pivot]
+    return quick(left) + mid + quick(right)
+
+arra14 = [15,1,10,12,5,8,3,9,7,6,2,11,14,13,4]
+arra14 = quick(arra14)
+print(arra14)'''

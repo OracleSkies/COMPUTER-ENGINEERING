@@ -1,0 +1,33 @@
+complementary rule
+P(A') = 1 - P(A)
+
+Addition rule
+event a and event b are mutually exclusive
+P(A U B) = P(A) + P(B)
+
+even a and even b are not mutually exclusive
+P(a U B) = P(A) + P(B) - P(a ^ B)
+
+multiplication rule
+events are dependent
+p(A^B) = P(A)P(B|A) = P(B)P(A|B)
+
+events are independent
+P(A^B) = P(A)P(B)
+
+random variables and probability distribution
+discrete random variable
+    - finite set of real numbers as its possible values.
+
+continuous random variables 
+    - on that has a range consisting of an interval (finite or infinite) of real numbers
+    - maraming decimal point
+
+probability distribution
+p(x) = P(X=x)
+given
+0 <= p(x) <=1
+sum of P(X=x) = 1
+
+Cumulative distribution function
+F(b) = P(X <= b)
