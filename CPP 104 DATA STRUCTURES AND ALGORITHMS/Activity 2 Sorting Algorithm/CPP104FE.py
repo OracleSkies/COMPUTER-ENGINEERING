@@ -203,7 +203,7 @@ class SortingApp:
     def sorted_window(self,sortAlgo,array,name):
 
         #creates a window that displays the sorted algorithm
-        
+
         sorted_array5_window = tk.Toplevel(self.root)
         sorted_array5_window.title(name)
         sorted_array5_window.geometry("950x400")
@@ -225,6 +225,7 @@ class SortingApp:
         back_button5 = tk.Button(buttonframe, text="Back", font=('Arial', 20), command=sorted_array5_window.destroy)
         back_button5.grid(row=1, column=0, sticky=tk.W+tk.E)
 
+#declaration of arrays
 array1 = [3,1,2]
 array2 = [5,3,8,1,2]
 array3 = [10,9,8,7,6,5,4,3,2,1]
@@ -233,6 +234,9 @@ array5 = [20,18,15,16,14,13,12,10,9,7,8,6,5,4,3,2,1,11,19,17]
 
 
 if __name__ == "__main__":
+    
+    #runs the GUI
+
     root = tk.Tk()
     app = SortingApp(root, array1, array2, array3, array4, array5)
     root.mainloop()
