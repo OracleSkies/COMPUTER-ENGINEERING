@@ -1,12 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
 
-class SortingAlgorithms():
+class SortingAlgorithms(): 
     def __init__(self,array,sortAlgo):
         self.array = array
         self.sortAlgo = sortAlgo
 
-    def bubbleSort(self,array):
+    def bubbleSort(self,array): #method for bubble sorting algorithm
         lenghtArray = len(array)
         for i in range(0, lenghtArray):
             for j in range(i + 1, lenghtArray):
@@ -14,7 +14,7 @@ class SortingAlgorithms():
                     array[i], array[j] = array[j], array[i]
         return array
     
-    def selectionSort(self,array):
+    def selectionSort(self,array): #method for selection sort algorithm
         lenghtArray = len(array)
         for i in range(lenghtArray):
             minElement = i
@@ -24,7 +24,7 @@ class SortingAlgorithms():
             array[i], array[minElement] = array[minElement], array[i]
         return array
     
-    def insertionSort(self,array):
+    def insertionSort(self,array): #method for insertion sort algorithm
         lenghtArray = len(array)
         for i in range(1, lenghtArray):
             key = array[i]
@@ -35,7 +35,7 @@ class SortingAlgorithms():
             array[j + 1] = key
         return array
     
-    def mergeSort(self,array):
+    def mergeSort(self,array): #method for merge sort algorithm
         lenghtArray = len(array)
         if lenghtArray > 1:
             mid = lenghtArray // 2
@@ -67,7 +67,7 @@ class SortingAlgorithms():
                 k += 1
         return array
     
-    def quickSort(self,array):
+    def quickSort(self,array): #method for quick sort algorithm
         lengthArray = len(array)
         if lengthArray <= 1:
             return array
@@ -77,7 +77,7 @@ class SortingAlgorithms():
             right = [x for x in array[1:] if x > pivot]
             return self.quickSort(left) + [pivot] + self.quickSort(right)
             
-    def selectedSort(self):
+    def selectedSort(self): #checks the algorithm selected by the user and runs the appropriate algorithm
         match self.sortAlgo:
             case "bubble":
                 return self.bubbleSort(self.array)
@@ -107,7 +107,10 @@ class SortingApp:
         start_button = tk.Button(root, text="Start", font=('Arial', 35), command=self.open_menu_window)
         start_button.pack(pady=20)
 
-    def open_menu_window(self):
+    def open_menu_window(self): 
+        
+        #creates the menu window
+
         menu_window = tk.Toplevel(self.root)
         menu_window.title("Menu Options")
         menu_window.geometry("300x450")
@@ -138,7 +141,10 @@ class SortingApp:
         b6 = tk.Button(buttonframe, text="Back", font=('Arial', 20), command=menu_window.destroy)
         b6.grid(row=5, column=0, sticky=tk.W+tk.E)
 
-    def open_array_window(self,sortAlgo):
+    def open_array_window(self,sortAlgo): 
+        
+        #creates a window that shows the list of array where user can select from
+
         array_window = tk.Toplevel(self.root)
         array_window.title("Array Lists")
         array_window.geometry("300x450")
@@ -169,7 +175,10 @@ class SortingApp:
         button6 = tk.Button(buttonframe, text="Back", font=('Arial', 20), command=array_window.destroy)
         button6.grid(row=6, column=0, sticky=tk.W+tk.E)
 
-    def array_window(self,sortAlgo,array,name):
+    def array_window(self,sortAlgo,array,name): 
+        
+        #creates a window that displays the unsorted array and allows the user to confirm sorting or return to previous window 
+
         unsorted_array5_window = tk.Toplevel(self.root)
         unsorted_array5_window.title(name)
         unsorted_array5_window.geometry("950x400")
@@ -192,6 +201,9 @@ class SortingApp:
         b2.grid(row=1, column=0, sticky=tk.W+tk.E)
 
     def sorted_window(self,sortAlgo,array,name):
+
+        #creates a window that displays the sorted algorithm
+        
         sorted_array5_window = tk.Toplevel(self.root)
         sorted_array5_window.title(name)
         sorted_array5_window.geometry("950x400")

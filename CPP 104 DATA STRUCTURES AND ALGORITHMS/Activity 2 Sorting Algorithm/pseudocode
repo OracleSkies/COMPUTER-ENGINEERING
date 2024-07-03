@@ -18,6 +18,92 @@ Begin
                 EndIF
             EndFor
         EndFor
-        Pass Out: Nothing
+        Pass Out: array
 End
 
+Begin
+    Function selectionSort
+        Pass In: array
+        lengthArray = length of array
+        For i = 0 To lengthArray 
+            minElement = i
+            For j = i + 1 To lengthArray 
+                IF array[j] < array[minElement] THEN
+                    minElement = j
+                EndIF
+            EndFor
+            swap array[i] and array[minElement]
+        EndFor
+        Pass Out: array
+End
+
+Begin
+    Function insertionSort
+        Pass In: array
+        lengthArray = length of array
+        For i = 1 To lengthArray
+            key = array[i]
+            j = i - 1
+            WHILE j >= 0 AND key < array[j] DO
+                array[j + 1] = array[j]
+                j -= 1
+            EndWHILE
+            array[j + 1] = key
+        EndFor
+        Pass Out: array
+End
+
+Begin
+    Function quickSort
+        Pass In: array
+        lengthArray = length of array
+        IF lengthArray <= 1 THEN
+            Pass Out: array
+        ELSE
+            pivot = array[0]
+            left = [elements in array where element < pivot]
+            right = [elements in array where element > pivot]
+            RETURN quickSort(left) + [pivot] + quickSort(right)
+        EndIF
+    EndFunction
+End
+
+Begin
+    Function mergeSort
+        Pass In: array
+        lengthArray = length of array
+        IF lengthArray > 1 THEN
+            mid = lengthArray // 2
+            left = array[0:mid]
+            right = array[mid:lengthArray]
+            
+            mergeSort(left)
+            mergeSort(right)
+            
+            i = j = k = 0
+            
+            WHILE i < length of left AND j < length of right DO
+                IF left[i] < right[j] THEN
+                    array[k] = left[i]
+                    i += 1
+                ELSE
+                    array[k] = right[j]
+                    j += 1
+                EndIF
+                k += 1
+            EndWHILE
+            
+            WHILE i < length of left DO
+                array[k] = left[i]
+                i += 1
+                k += 1
+            EndWHILE
+            
+            WHILE j < length of right DO
+                array[k] = right[j]
+                j += 1
+                k += 1
+            EndWHILE
+        EndIF
+        Pass Out: array
+End
