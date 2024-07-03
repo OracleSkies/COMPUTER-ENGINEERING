@@ -33,13 +33,13 @@ stack.push(18)
 stack.push(60)
 
 #output area
-#print(stack)
+print(stack)
 #print(stack.peek())
 #print(stack.__str__())
 #print(stack.size())
 #print(stack.pop())
 #print(stack.peek())
-for i in range(stack.size()):
+'''for i in range(stack.size()):
     stack.pop()
-    
-print(stack.isEmpty())
+
+print(stack.isEmpty())'''
