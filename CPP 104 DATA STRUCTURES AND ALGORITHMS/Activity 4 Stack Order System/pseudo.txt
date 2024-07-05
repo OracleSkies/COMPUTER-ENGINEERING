@@ -1,0 +1,41 @@
+
+Class OrderSystem
+
+    Function _init_
+        Initialize self.orders to an empty list
+        Initialize self.maxOrders to 10
+    EndFunction
+
+    Function isEmpty
+        Return True if the length of self.orders is 0, otherwise return False
+    EndFunction
+
+    Function push
+        Add item to the end of self.orders
+    EndFunction
+
+    Function pop
+        If isEmpty() is True
+            Raise IndexError with message "Pop from an empty stack"
+        Else
+            Remove and return the last item from self.orders
+        EndIf
+    EndFunction
+
+    Function peek
+        If isEmpty() is True
+            Raise IndexError with message "Peek from an empty stack"
+        Else
+            Return the last item from self.orders without removing it
+        EndIf
+    EndFunction
+
+    Function size
+        Return the length of self.orders
+    EndFunction
+
+    Function __str__
+        Return a string representation of self.orders
+    EndFunction
+
+EndClass

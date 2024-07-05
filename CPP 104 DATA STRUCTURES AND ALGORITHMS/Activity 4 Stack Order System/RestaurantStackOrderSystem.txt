@@ -11,20 +11,16 @@ class OrderSystem:
     def push(self,item):#Add an item to the top of the stack
         self.orders.append(item)
 
-    def pop(self):
-        if self.isEmpty():
-            raise IndexError("Pop from an empty stack")
+    def pop(self): #Removes the last element in the array
         return self.orders.pop()
     
-    def peek(self):
-        if self.isEmpty():
-            raise IndexError("Peek from an empty stack")
+    def peek(self): #Returns the last element in the array without removing it
         return self.orders[-1]
     
-    def size(self):
+    def size(self): #Returns the number of elements inside the array
         return len(self.orders)
     
-    def __str__(self):
+    def __str__(self): #returns the array as a string
         return str(self.orders)
     
 class OrderGUI:
@@ -58,13 +54,14 @@ class OrderGUI:
         b4 = tk.Button(labelframe, text="Check All Pending Orders", font=('Arial', 20), bg="royalblue3", fg="white", command=lambda: self.IsOrderEmpty("all order"))
         b4.grid(row=3, column=0, sticky=tk.W+tk.E, pady=10)
 
-        b5 = tk.Button(labelframe, text="Check If Order List is Full", font=('Arial', 20), bg="royalblue3", fg="white", command=self.open_check_if_stack_is_full_window)
+        b5 = tk.Button(labelframe, text="Current Number of Orders", font=('Arial', 20), bg="royalblue3", fg="white", command=self.open_check_if_stack_is_full_window)
         b5.grid(row=4, column=0, sticky=tk.W+tk.E, pady=10)
 
         b6 = tk.Button(labelframe, text="EXIT", font=('Arial', 20), bg="royalblue3", fg="white", command=self.root.destroy)
         b6.grid(row=5, column=0, sticky=tk.W+tk.E, pady=10)
     
-    def IsOrderFull(self):
+    #Checks if the order is full
+    def IsOrderFull(self): 
         if self.order.size() == 10:
             self.fullOrderWindow()
         self.open_add_order_window()
@@ -266,7 +263,8 @@ class OrderGUI:
 
         button = tk.Button(check_order_pending, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=check_order_pending.destroy)
         button.grid(row=2, column=0, pady=10, sticky=tk.N)
-
+    
+    #Message window if the order stack is empty
     def emptyOrderWindow(self):
 
         self.emptyOrderMessage = tk.Toplevel(self.root)
@@ -286,7 +284,7 @@ class OrderGUI:
 
         confirm_back_button = tk.Button(confirm_buttonframe, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=self.emptyOrderMessage.destroy)
         confirm_back_button.grid(row=0, column=0, pady=10, sticky=tk.W+tk.E)
-    
+    #Message window if the order stack is full
     def fullOrderWindow(self):
 
         self.fullOrderWindow = tk.Toplevel(self.root)
