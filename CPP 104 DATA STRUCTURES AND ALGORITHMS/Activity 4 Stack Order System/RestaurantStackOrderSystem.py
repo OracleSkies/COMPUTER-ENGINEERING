@@ -1,9 +1,9 @@
 import tkinter as tk
-from tkinter import ttk
 
 class OrderSystem:
     def __init__(self):
         self.orders = []
+        self.maxOrders = 10
     
     def isEmpty(self): # Check if the stack is empty
         return len(self.orders) == 0
@@ -37,7 +37,6 @@ class OrderGUI:
         self.root.configure(bg='midnight blue')
         self.order = OrderSystem()
         
-
         label = tk.Label(root, text="Restaurant Order Management System", font=('Arial', 25), bg='midnight blue', fg='white')
         label.pack(padx=20, pady=20)
 
@@ -47,7 +46,7 @@ class OrderGUI:
         labelframe.columnconfigure(0, weight=1)
 
         #buttons for choosing
-        b1 = tk.Button(labelframe, text="Add Order", font=('Arial', 20), bg="royalblue3", fg="white", command=self.open_add_order_window)
+        b1 = tk.Button(labelframe, text="Add Order", font=('Arial', 20), bg="royalblue3", fg="white", command=self.IsOrderFull)
         b1.grid(row=0, column=0, sticky=tk.W+tk.E, pady=10)
 
         b2 = tk.Button(labelframe, text="Serve Order", font=('Arial', 20), bg="royalblue3", fg="white", command=lambda: self.IsOrderEmpty("serve"))
@@ -56,14 +55,19 @@ class OrderGUI:
         b3 = tk.Button(labelframe, text="View Current Order", font=('Arial', 20), bg="royalblue3", fg="white", command=lambda: self.IsOrderEmpty("current"))
         b3.grid(row=2, column=0, sticky=tk.W+tk.E, pady=10)
 
-        b4 = tk.Button(labelframe, text="Check Order Pending", font=('Arial', 20), bg="royalblue3", fg="white", command=self.open_check_order_pending_window)
+        b4 = tk.Button(labelframe, text="Check All Pending Orders", font=('Arial', 20), bg="royalblue3", fg="white", command=lambda: self.IsOrderEmpty("all order"))
         b4.grid(row=3, column=0, sticky=tk.W+tk.E, pady=10)
 
-        b5 = tk.Button(labelframe, text="Check If Stack is Full", font=('Arial', 20), bg="royalblue3", fg="white", command=self.open_check_if_stack_is_full_window)
+        b5 = tk.Button(labelframe, text="Check If Order List is Full", font=('Arial', 20), bg="royalblue3", fg="white", command=self.open_check_if_stack_is_full_window)
         b5.grid(row=4, column=0, sticky=tk.W+tk.E, pady=10)
 
         b6 = tk.Button(labelframe, text="EXIT", font=('Arial', 20), bg="royalblue3", fg="white", command=self.root.destroy)
         b6.grid(row=5, column=0, sticky=tk.W+tk.E, pady=10)
+    
+    def IsOrderFull(self):
+        if self.order.size() == 10:
+            self.fullOrderWindow()
+        self.open_add_order_window()
 
     #checks if the stack is empty before creating windows based on the argument
     def IsOrderEmpty(self,action):
@@ -77,6 +81,8 @@ class OrderGUI:
                 self.open_serve_order_window()
             case "current":
                 self.open_view_current_order_window()
+            case "all order":
+                self.open_check_order_pending_window()
         
     #new pop-up window for adding order
     def open_add_order_window(self):
@@ -109,6 +115,9 @@ class OrderGUI:
 
     #confirmation for added order in the list
     def confirm_add_order(self):
+        if self.order.size() == 10:
+            self.fullOrderWindow()
+            return
         orderToPush = self.orderEntry.get()
         self.order.push(orderToPush)
 
@@ -204,25 +213,26 @@ class OrderGUI:
     def open_check_order_pending_window(self):
         check_order_pending = tk.Toplevel(self.root)
         check_order_pending.title("Check Order Pending")
-        check_order_pending.geometry("500x600")
+        check_order_pending.geometry("500x500")
         check_order_pending.configure(bg='midnight blue')
 
         check_order_pending.columnconfigure(0, weight=1)
 
         label1 = tk.Label(check_order_pending, text="Check Order Pending", font=('Arial', 25), bg='midnight blue', fg='white')
         label1.grid(row=0, column=0, pady=10, sticky=tk.N)
-
-        #=================================
-        #Mag edit ka na lang sa part na ito boss Inay
-        #=================================
+           
 
         labelframe = tk.LabelFrame(check_order_pending, bg='royalblue3')
-        labelframe.grid(row=1, column=0, padx=20, pady=20, sticky=tk.W+tk.E)
+        labelframe.grid(row=1, column=0, padx=20, pady=20, sticky=tk.N+tk.S+tk.E+tk.W)
 
         labelframe.columnconfigure(0, weight=1)
 
+        #displays the all the order inside the stack 
+        def orderDisplay():
+            return "\n".join(self.order.orders)
+
         #display the pending orders that is pending
-        label2 = tk.Label(labelframe, text="Dito nakalagay yung mga pending orders", font=('Arial', 15), bg='royalblue3', fg='white')
+        label2 = tk.Label(labelframe,text = orderDisplay(), font=('Arial', 15), bg='royalblue3', fg='white')
         label2.grid(row=0, column=0, pady=20, sticky=tk.N)
 
         button = tk.Button(check_order_pending, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=check_order_pending.destroy)
@@ -231,22 +241,27 @@ class OrderGUI:
     #new pop-up window for checking if stack is full
     def open_check_if_stack_is_full_window(self):
         check_order_pending = tk.Toplevel(self.root)
-        check_order_pending.title("Check If Stack is Full")
+        check_order_pending.title("Order Capacity Check")
         check_order_pending.geometry("400x300")
         check_order_pending.configure(bg='midnight blue')
 
         check_order_pending.columnconfigure(0, weight=1)
 
         #display if the stack is full or not
-        label1 = tk.Label(check_order_pending, text="Check if Stack is Full", font=('Arial', 23), bg='midnight blue', fg='white')
+        label1 = tk.Label(check_order_pending, text="Check If Order List is Full", font=('Arial', 23), bg='midnight blue', fg='white')
         label1.grid(row=0, column=0, pady=10, sticky=tk.N)
 
         labelframe = tk.LabelFrame(check_order_pending, bg='royalblue3')
         labelframe.grid(row=1, column=0, padx=20, pady=20, sticky=tk.W+tk.E)
 
         labelframe.columnconfigure(0, weight=1)
+        textToDisplay = ""
+        if self.order.size() < 10:
+            textToDisplay = f"Order is not yet full\nYour ordered items are {self.order.size()}/10"
+        else:
+            textToDisplay = "Your order list is full!"
 
-        label2 = tk.Label(labelframe, text="Order list is not full/ Order list is full", font=('Arial', 15), bg='royalblue3', fg='white')
+        label2 = tk.Label(labelframe, text=textToDisplay, font=('Arial', 15), bg='royalblue3', fg='white')
         label2.grid(row=0, column=0, pady=20, sticky=tk.N)
 
         button = tk.Button(check_order_pending, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=check_order_pending.destroy)
@@ -271,7 +286,28 @@ class OrderGUI:
 
         confirm_back_button = tk.Button(confirm_buttonframe, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=self.emptyOrderMessage.destroy)
         confirm_back_button.grid(row=0, column=0, pady=10, sticky=tk.W+tk.E)
+    
+    def fullOrderWindow(self):
 
+        self.fullOrderWindow = tk.Toplevel(self.root)
+        self.fullOrderWindow.title("Full Order")
+        self.fullOrderWindow.geometry("400x300")
+        self.fullOrderWindow.configure(bg='midnight blue')
+
+        emptyLabel = tk.Label(self.fullOrderWindow, text="Full Order", font=('Arial', 22), bg='midnight blue', fg='white')
+        emptyLabel.pack(pady=10)
+
+        display_emptyLabel = tk.Label(self.fullOrderWindow, text="Your order list is full", font=('Arial', 15), bg='midnight blue', fg='white')
+        display_emptyLabel.pack(pady=10)
+
+        confirm_buttonframe = tk.LabelFrame(self.fullOrderWindow, bg='midnight blue')
+        confirm_buttonframe.pack(fill='x', padx=20, pady=20)
+        confirm_buttonframe.columnconfigure(0, weight=1)
+
+        confirm_back_button = tk.Button(confirm_buttonframe, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=self.fullOrderWindow.destroy)
+        confirm_back_button.grid(row=0, column=0, pady=10, sticky=tk.W+tk.E)
+
+    
 
 if __name__ == "__main__":
     root = tk.Tk()

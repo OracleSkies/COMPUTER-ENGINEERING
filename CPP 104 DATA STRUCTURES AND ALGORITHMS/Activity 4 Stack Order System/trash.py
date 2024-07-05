@@ -1,18 +1,19 @@
-import tkinter as tk
+def fullOrderWindow(self):
 
-root = tk.Tk()
+        self.fullOrderWindow = tk.Toplevel(self.root)
+        self.fullOrderWindow.title("Empty Order")
+        self.fullOrderWindow.geometry("400x300")
+        self.fullOrderWindow.configure(bg='midnight blue')
 
-label1 = tk.Label(root, text="Label 1")
-label2 = tk.Label(root, text="Label 2 (spans 2 columns)")
-label3 = tk.Label(root, text="Label 3 (spans 2 rows)")
+        emptyLabel = tk.Label(self.fullOrderWindow, text="Empty Order", font=('Arial', 22), bg='midnight blue', fg='white')
+        emptyLabel.pack(pady=10)
 
-# Place label1 in row 0, column 0, spanning 1 column and 1 row (default)
-label1.grid(row=0, column=0)
+        display_emptyLabel = tk.Label(self.fullOrderWindow, text="You have no orders in your list", font=('Arial', 15), bg='midnight blue', fg='white')
+        display_emptyLabel.pack(pady=10)
 
-# Place label2 in row 1, column 0, spanning 2 columns and 1 row
-label2.grid(row=1, column=0, columnspan=2)
+        confirm_buttonframe = tk.LabelFrame(self.fullOrderWindow, bg='midnight blue')
+        confirm_buttonframe.pack(fill='x', padx=20, pady=20)
+        confirm_buttonframe.columnconfigure(0, weight=1)
 
-# Place label3 in row 0, column 1, spanning 1 column and 2 rows
-label3.grid(row=0, column=1, rowspan=2)
-
-root.mainloop()
+        confirm_back_button = tk.Button(confirm_buttonframe, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=self.fullOrderWindow.destroy)
+        confirm_back_button.grid(row=0, column=0, pady=10, sticky=tk.W+tk.E)
