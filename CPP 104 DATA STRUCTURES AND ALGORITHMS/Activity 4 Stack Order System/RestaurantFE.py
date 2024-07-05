@@ -50,10 +50,10 @@ class OrderGUI:
         b1 = tk.Button(labelframe, text="Add Order", font=('Arial', 20), bg="royalblue3", fg="white", command=self.open_add_order_window)
         b1.grid(row=0, column=0, sticky=tk.W+tk.E, pady=10)
 
-        b2 = tk.Button(labelframe, text="Serve Order", font=('Arial', 20), bg="royalblue3", fg="white", command=self.open_serve_order_window)
+        b2 = tk.Button(labelframe, text="Serve Order", font=('Arial', 20), bg="royalblue3", fg="white", command=lambda: self.IsOrderEmpty("serve"))
         b2.grid(row=1, column=0, sticky=tk.W+tk.E, pady=10)
 
-        b3 = tk.Button(labelframe, text="View Current Order", font=('Arial', 20), bg="royalblue3", fg="white", command=self.open_view_current_order_window)
+        b3 = tk.Button(labelframe, text="View Current Order", font=('Arial', 20), bg="royalblue3", fg="white", command=lambda: self.IsOrderEmpty("current"))
         b3.grid(row=2, column=0, sticky=tk.W+tk.E, pady=10)
 
         b4 = tk.Button(labelframe, text="Check Order Pending", font=('Arial', 20), bg="royalblue3", fg="white", command=self.open_check_order_pending_window)
@@ -65,6 +65,19 @@ class OrderGUI:
         b6 = tk.Button(labelframe, text="EXIT", font=('Arial', 20), bg="royalblue3", fg="white", command=self.root.destroy)
         b6.grid(row=5, column=0, sticky=tk.W+tk.E, pady=10)
 
+    #checks if the stack is empty before creating windows based on the argument
+    def IsOrderEmpty(self,action):
+        if self.order.isEmpty():
+            self.emptyOrderWindow()
+            return
+        
+        #runs the corresponding window selected by the user.
+        match action:
+            case "serve":
+                self.open_serve_order_window()
+            case "current":
+                self.open_view_current_order_window()
+        
     #new pop-up window for adding order
     def open_add_order_window(self):
         self.add_order_window = tk.Toplevel(self.root)
@@ -104,11 +117,11 @@ class OrderGUI:
         self.add_confirm.geometry("400x300")
         self.add_confirm.configure(bg='midnight blue')
 
-        confirmLabel = tk.Label(self.add_confirm, text="Order Added", font=('Arial', 22), bg='midnight blue', fg='white')
-        confirmLabel.pack(pady=10)
+        emptyLabel = tk.Label(self.add_confirm, text="Order Added", font=('Arial', 22), bg='midnight blue', fg='white')
+        emptyLabel.pack(pady=10)
 
-        display_confirmLabel = tk.Label(self.add_confirm, text=f"{orderToPush} added to the list", font=('Arial', 15), bg='midnight blue', fg='white')
-        display_confirmLabel.pack(pady=10)
+        display_emptyLabel = tk.Label(self.add_confirm, text=f"{orderToPush} added to the list", font=('Arial', 15), bg='midnight blue', fg='white')
+        display_emptyLabel.pack(pady=10)
 
         confirm_buttonframe = tk.LabelFrame(self.add_confirm, bg='midnight blue')
         confirm_buttonframe.pack(fill='x', padx=20, pady=20)
@@ -133,8 +146,10 @@ class OrderGUI:
         self.buttonframe.columnconfigure(0, weight=1)
         self.buttonframe.columnconfigure(1, weight=1)
 
+        currentOrder = self.order.peek()
+
         #user input for adding order
-        self.orderLabel = tk.Label(self.buttonframe, text="Confirm Serving", font=('Arial', 15), bg='midnight blue', fg='white')
+        self.orderLabel = tk.Label(self.buttonframe, text=f"You want to serve {currentOrder}?", font=('Arial', 15), bg='midnight blue', fg='white')
         self.orderLabel.grid(row=0, column=0, columnspan=2, pady=5)
 
         self.serveButton = tk.Button(self.buttonframe, text="Serve", font=('Arial', 20), bg='royalblue3', fg='white', command = self.confirm_serve_order)
@@ -142,22 +157,19 @@ class OrderGUI:
 
         self.backButton = tk.Button(self.buttonframe, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=self.serve_order_window.destroy)
         self.backButton.grid(row=2, column=1, sticky=tk.W+tk.E, padx=15, pady=5)
-
-    def confirm_serve_order(self):
-        self.order.pop() 
-        #==== Need Error Handling ======
     
-     
+    def confirm_serve_order(self):
+        currentOrder = self.order.peek()
         self.confirm_serve = tk.Toplevel(self.root)
         self.confirm_serve.title("Order Served")
         self.confirm_serve.geometry("400x300")
         self.confirm_serve.configure(bg='midnight blue')
 
-        confirmLabel = tk.Label(self.confirm_serve, text="Order Served", font=('Arial', 22), bg='midnight blue', fg='white')
-        confirmLabel.pack(pady=10)
+        emptyLabel = tk.Label(self.confirm_serve, text="Order Served", font=('Arial', 22), bg='midnight blue', fg='white')
+        emptyLabel.pack(pady=10)
 
-        display_confirmLabel = tk.Label(self.confirm_serve, text="Order is now served", font=('Arial', 15), bg='midnight blue', fg='white')
-        display_confirmLabel.pack(pady=10)
+        display_emptyLabel = tk.Label(self.confirm_serve, text=f"{currentOrder} is now served", font=('Arial', 15), bg='midnight blue', fg='white')
+        display_emptyLabel.pack(pady=10)
 
         confirm_buttonframe_serve = tk.LabelFrame(self.confirm_serve, bg='royalblue3')
         confirm_buttonframe_serve.pack(fill='x', padx=20, pady=20)
@@ -165,6 +177,7 @@ class OrderGUI:
 
         confirm_back_button = tk.Button(confirm_buttonframe_serve, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=self.confirm_serve.destroy)
         confirm_back_button.grid(row=0, column=0, pady=10, sticky=tk.W+tk.E)
+        self.order.pop() 
 
     #new pop-up window for viewing current order
     def open_view_current_order_window(self):
@@ -186,18 +199,22 @@ class OrderGUI:
 
         button = tk.Button(open_current_order_window, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=open_current_order_window.destroy)
         button.grid(row=2, column=0, pady=10, sticky=tk.N)
-
+    
     #new pop-up window for checking pending orders
     def open_check_order_pending_window(self):
         check_order_pending = tk.Toplevel(self.root)
         check_order_pending.title("Check Order Pending")
-        check_order_pending.geometry("400x300")
+        check_order_pending.geometry("500x600")
         check_order_pending.configure(bg='midnight blue')
 
         check_order_pending.columnconfigure(0, weight=1)
 
         label1 = tk.Label(check_order_pending, text="Check Order Pending", font=('Arial', 25), bg='midnight blue', fg='white')
         label1.grid(row=0, column=0, pady=10, sticky=tk.N)
+
+        #=================================
+        #Mag edit ka na lang sa part na ito boss Inay
+        #=================================
 
         labelframe = tk.LabelFrame(check_order_pending, bg='royalblue3')
         labelframe.grid(row=1, column=0, padx=20, pady=20, sticky=tk.W+tk.E)
@@ -209,7 +226,7 @@ class OrderGUI:
         label2.grid(row=0, column=0, pady=20, sticky=tk.N)
 
         button = tk.Button(check_order_pending, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=check_order_pending.destroy)
-        button.grid(row=2, column=0, pady=10, sticky=tk.N)
+        button.grid(row=7, column=0, pady=10, sticky=tk.N)
 
     #new pop-up window for checking if stack is full
     def open_check_if_stack_is_full_window(self):
@@ -234,6 +251,26 @@ class OrderGUI:
 
         button = tk.Button(check_order_pending, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=check_order_pending.destroy)
         button.grid(row=2, column=0, pady=10, sticky=tk.N)
+
+    def emptyOrderWindow(self):
+
+        self.emptyOrderMessage = tk.Toplevel(self.root)
+        self.emptyOrderMessage.title("Empty Order")
+        self.emptyOrderMessage.geometry("400x300")
+        self.emptyOrderMessage.configure(bg='midnight blue')
+
+        emptyLabel = tk.Label(self.emptyOrderMessage, text="Empty Order", font=('Arial', 22), bg='midnight blue', fg='white')
+        emptyLabel.pack(pady=10)
+
+        display_emptyLabel = tk.Label(self.emptyOrderMessage, text="You have no orders in your list", font=('Arial', 15), bg='midnight blue', fg='white')
+        display_emptyLabel.pack(pady=10)
+
+        confirm_buttonframe = tk.LabelFrame(self.emptyOrderMessage, bg='midnight blue')
+        confirm_buttonframe.pack(fill='x', padx=20, pady=20)
+        confirm_buttonframe.columnconfigure(0, weight=1)
+
+        confirm_back_button = tk.Button(confirm_buttonframe, text="Back", font=('Arial', 20), bg='royalblue3', fg='white', command=self.emptyOrderMessage.destroy)
+        confirm_back_button.grid(row=0, column=0, pady=10, sticky=tk.W+tk.E)
 
 
 if __name__ == "__main__":
