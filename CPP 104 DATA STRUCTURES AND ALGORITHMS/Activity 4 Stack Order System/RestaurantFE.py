@@ -107,7 +107,7 @@ class OrderGUI:
         confirmLabel = tk.Label(self.add_confirm, text="Order Added", font=('Arial', 22), bg='midnight blue', fg='white')
         confirmLabel.pack(pady=10)
 
-        display_confirmLabel = tk.Label(self.add_confirm, text="Order added to the list", font=('Arial', 15), bg='midnight blue', fg='white')
+        display_confirmLabel = tk.Label(self.add_confirm, text=f"{orderToPush} added to the list", font=('Arial', 15), bg='midnight blue', fg='white')
         display_confirmLabel.pack(pady=10)
 
         confirm_buttonframe = tk.LabelFrame(self.add_confirm, bg='midnight blue')
