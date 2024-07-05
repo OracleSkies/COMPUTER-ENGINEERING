@@ -1,7 +1,7 @@
 
 Class OrderSystem
 
-    Function _init_
+    Function __init__
         Initialize self.orders to an empty list
         Initialize self.maxOrders to 10
     EndFunction
