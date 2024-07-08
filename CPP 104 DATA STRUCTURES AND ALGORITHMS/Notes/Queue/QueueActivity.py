@@ -1,3 +1,6 @@
+#Donasco, Jomer John L.
+#1CPE-A
+
 class Queue:
     def __init__(self):
         self.queue = []
