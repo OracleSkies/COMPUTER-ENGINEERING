@@ -15,4 +15,11 @@ def evaluate(exp):
             elif char == '/':
                 stack.append(val2 / val1)
     return stack.pop()
-print(evaluate("231*+8-"))
+#print(evaluate("231*+8-"))
+
+def sheesh():
+    stack = []
+
+
+
+
