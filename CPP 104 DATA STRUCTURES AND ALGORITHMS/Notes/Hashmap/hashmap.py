@@ -1,4 +1,4 @@
-class HashMap:
+class HashMap:   
     def __init__(self, size=10):
         # Initialize the hash map with a specified size (default is 10).
         # 'table' is a list of empty lists, each serving as a bucket.
@@ -90,6 +90,10 @@ class HashMap:
         # Return a string representation of the hash map.
         return str(self.table)
     
+    def bucketCheck(self):
+        for bucket in self.table:
+            print(bucket)
+    
 #===OUTPUT AREA===
 hashMap = HashMap()
 hashMap.insert("Apple", 1)
@@ -99,10 +103,12 @@ hashMap.insert("Grapes",4)
 hashMap.insert("Carrot",5)
 
 #print(f"\n{hashMap}\n")
-#print(hashMap.get("Orange"))
-#print(hashMap.size)
-#print(hashMap.get_size())
-#print(hashMap.keys())
-#print(hashMap.values())
+print(hashMap.get("Orange"))
+print(hashMap.size)
+print(hashMap.get_size())
+print(hashMap.keys())
+print(hashMap.values())
 hashMap.remove("Carrot")
-print(f"\n{hashMap}\n")
+print(f"{hashMap}")
+
+hashMap.bucketCheck()
