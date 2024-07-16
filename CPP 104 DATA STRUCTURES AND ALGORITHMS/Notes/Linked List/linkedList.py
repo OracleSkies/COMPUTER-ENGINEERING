@@ -43,5 +43,4 @@ class LinkedList:
     def size(self):
         pass
 
-n = Node(4)
 
