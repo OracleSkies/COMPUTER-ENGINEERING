@@ -10,7 +10,7 @@ class LinkedList:
     def __init__(self):
         self.head = None
 
-    def is_empty(self):
+    def is_empty(self): #checks if the Linked list is empty
         return self.head is None
 
     def append(self, data): #insert at end
@@ -23,7 +23,7 @@ class LinkedList:
             last_node = last_node.next
         last_node.next = new_node
 
-    def delete_node_at_position(self, position):
+    def delete_node_at_position(self, position): #deletes a node at a certain index or position
         if self.head is None:
             return
         temp = self.head
@@ -41,7 +41,7 @@ class LinkedList:
         temp.next = None
         temp.next = next_node
 
-    def length(self):
+    def length(self): #returns the current lenght of the list
         count = 0
         current = self.head
         while current:
@@ -56,10 +56,10 @@ class LinkedList:
             errorText = "There are no patients to serve yet"
             return errorText
         
-    def isFull(self):
+    def isFull(self): #checks if the list is at max capacity (max at 10)
         return self.length() >= 10
 
-    def displayPatients(self):
+    def displayPatients(self): #returns all the data inside the linked list
         current = self.head
         nodes = []
         while current:
