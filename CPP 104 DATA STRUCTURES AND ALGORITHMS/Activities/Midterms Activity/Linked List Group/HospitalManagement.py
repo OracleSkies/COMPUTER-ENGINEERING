@@ -9,7 +9,6 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
-        self.maxNumber = 10
 
     def is_empty(self):
         return self.head is None
@@ -23,34 +22,6 @@ class LinkedList:
         while last_node.next:
             last_node = last_node.next
         last_node.next = new_node
-
-    def prepend(self, data): #insert at beginning
-        new_node = Node(data)
-        new_node.next = self.head
-        self.head = new_node
-
-    def insert_after_node(self, prev_node, data):
-        if not prev_node:
-            print("Previous node is not in the list")
-            return
-        new_node = Node(data)
-        new_node.next = prev_node.next
-        prev_node.next = new_node
-
-    def delete_node(self, key):
-        temp = self.head
-        if temp and temp.data == key:
-            self.head = temp.next
-            temp = None
-            return
-        prev = None
-        while temp and temp.data != key:
-            prev = temp
-            temp = temp.next
-        if temp is None:
-            return
-        prev.next = temp.next
-        temp = None
 
     def delete_node_at_position(self, position):
         if self.head is None:
@@ -77,24 +48,6 @@ class LinkedList:
             count += 1
             current = current.next
         return count
-
-    def search(self, key):
-        current = self.head
-        while current:
-            if current.data == key:
-                return True
-            current = current.next
-        return False
-
-    def reverse(self):
-        prev = None
-        current = self.head
-        while current:
-            next_node = current.next
-            current.next = prev
-            prev = current
-            current = next_node
-        self.head = prev
     
     def listHead(self): #returns the head of the linked list
         if self.head:
@@ -146,7 +99,7 @@ class Patient_Management_System:
         button_current_patient = tk.Button(self.root, text="Current Patient", font=("Times New Roman", 20, "bold"), width=15, command=self.open_current_patient_window)
         button_current_patient.grid(row=3, column=column_position, columnspan=2, sticky=tk.W+tk.E, pady=10)
 
-        button_pending_patient = tk.Button(self.root, text="Pending Patient", font=("Times New Roman", 20, "bold"), width=15, command=self.open_check_pending_list_window)
+        button_pending_patient = tk.Button(self.root, text="Pending Patient List", font=("Times New Roman", 20, "bold"), width=15, command=self.open_check_pending_list_window)
         button_pending_patient.grid(row=4, column=column_position, columnspan=2, sticky=tk.W+tk.E, pady=10)
 
         button_check_patient_list_if_full = tk.Button(self.root, text="Patient Capacity", font=("Times New Roman", 20, "bold"), width=15, command=self.open_if_pending_full_window)
@@ -188,7 +141,7 @@ class Patient_Management_System:
     def open_serve_patient_window(self):
         self.serve_patient_window = tk.Toplevel(self.root)
         self.serve_patient_window.title("Serve Patient")
-        self.serve_patient_window.geometry("800x570")
+        self.serve_patient_window.geometry("800x400")
 
         self.serve_patient_label = tk.Label(self.serve_patient_window, text="Serve Patient", font=("Times New Roman", 45, "bold"))
         self.serve_patient_label.pack(pady=20)
@@ -199,7 +152,7 @@ class Patient_Management_System:
         self.serve_patient_labelframe.columnconfigure(0, weight=1)
         self.serve_patient_labelframe.columnconfigure(1, weight=1)
 
-        self.serve_patient_input_text = tk.Label(self.serve_patient_labelframe, text= f"{self.link.listHead()}", font=("Time New Roman", 35))
+        self.serve_patient_input_text = tk.Label(self.serve_patient_labelframe, text= f"{self.link.listHead()}", font=("Times New Roman", 20))
         self.serve_patient_input_text.grid(row=0, column=0, columnspan=2, pady=5, padx=10, sticky=tk.W+tk.E)
 
         self.button_serve_patient_confirm = tk.Button(self.serve_patient_labelframe, text="Serve", font=("Times New Roman", 25, "bold"), command=self.confirm_serve_patient)
