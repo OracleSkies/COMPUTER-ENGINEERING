@@ -1,0 +1,96 @@
+Begin
+    Pass In: None
+
+    Class Node
+
+        Function __init__(self, data=None)
+            Set self.data to data
+            Set self.next to None
+        EndFunction
+
+    EndClass
+
+    Class LinkedList
+
+        Function __init__(self)
+            Set self.head to None
+        EndFunction
+
+        Function is_empty(self)
+            Return True if self.head is None, otherwise return False
+        EndFunction
+
+        Function append(self, data)
+            Create new_node with Node(data)
+            If is_empty() is True
+                Set self.head to new_node
+                Return
+            EndIf
+            Set last_node to self.head
+            While last_node.next is not None
+                Set last_node to last_node.next
+            EndWhile
+            Set last_node.next to new_node
+        EndFunction
+
+        Function delete_node_at_position(self, position)
+            If self.head is None
+                Return
+            EndIf
+            Set temp to self.head
+            If position equals 0
+                Set self.head to temp.next
+                Set temp to None
+                Return
+            EndIf
+            For i from 0 to position - 1
+                Set temp to temp.next
+                If temp is None
+                    Return
+                EndIf
+            EndFor
+            If temp is None or temp.next is None
+                Return
+            EndIf
+            Set next_node to temp.next.next
+            Set temp.next to None
+            Set temp.next to next_node
+        EndFunction
+
+        Function length(self)
+            Set count to 0
+            Set current to self.head
+            While current is not None
+                Increment count by 1
+                Set current to current.next
+            EndWhile
+            Return count
+        EndFunction
+
+        Function listHead(self) 
+            If self.head is not None
+                Return self.head.data
+            Else
+                Set errorText to "There are no patients to serve yet"
+                Return errorText
+            EndIf
+        EndFunction
+
+        Function isFull(self) 
+            Return length() >= 10
+        EndFunction
+
+        Function displayPatients(self)
+            Set current to self.head
+            Create empty list nodes
+            While current is not None
+                Append current.data to nodes
+                Set current to current.next
+            EndWhile
+            Return nodes
+        EndFunction
+
+    EndClass
+
+    Pass Out: None
+End
