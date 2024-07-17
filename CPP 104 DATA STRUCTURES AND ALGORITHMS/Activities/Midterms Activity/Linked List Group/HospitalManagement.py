@@ -76,7 +76,16 @@ class Patient_Management_System:
         self.root.geometry("1000x700")
         self.root.title("Patient Management System")
 
-        ## background image of main window
+        # Load the background image for the main window
+        self.image_path = "Main Window BG.png"
+        self.background_image_main = PhotoImage(file=self.image_path)
+
+        self.image_path_subWindow = "Sub Window BG.png"
+        self.background_subWindow = PhotoImage(file=self.image_path_subWindow)
+
+        # Set the background image for the main window
+        self.background_label = tk.Label(root, image=self.background_image_main)
+        self.background_label.place(relwidth=1, relheight=1)
 
         # Adjust the grid to allow proper positioning
         for i in range(12):
@@ -107,11 +116,17 @@ class Patient_Management_System:
 
         button_main_exit = tk.Button(self.root, text="Exit", font=("Times New Roman", 20, "bold"), width=15, command=self.root.destroy)
         button_main_exit.grid(row=6, column=column_position, columnspan=2, sticky=tk.W+tk.E, pady=10)
+    
+    def set_background(self, window):
+        background_label = tk.Label(window, image=self.background_subWindow)
+        background_label.place(relwidth=1, relheight=1)
 
     def open_add_patient_window(self):
         self.add_patient_window = tk.Toplevel(self.root)
         self.add_patient_window.title("Add Patient")
         self.add_patient_window.geometry("750x570")
+
+        self.set_background(self.add_patient_window)
 
         self.add_patient_label = tk.Label(self.add_patient_window, text="Add Patient", font=("Times New Roman", 40, "bold"))
         self.add_patient_label.pack(pady=20)
@@ -142,6 +157,8 @@ class Patient_Management_System:
         self.serve_patient_window = tk.Toplevel(self.root)
         self.serve_patient_window.title("Serve Patient")
         self.serve_patient_window.geometry("800x400")
+
+        self.set_background(self.serve_patient_window)
 
         self.serve_patient_label = tk.Label(self.serve_patient_window, text="Serve Patient", font=("Times New Roman", 45, "bold"))
         self.serve_patient_label.pack(pady=20)
@@ -175,6 +192,8 @@ class Patient_Management_System:
         self.current_patient_window.title("Current Patient")
         self.current_patient_window.geometry("750x350")
 
+        self.set_background(self.current_patient_window)
+
         self.current_patient_label = tk.Label(self.current_patient_window, text="Check Current Patient", font=("Times New Roman", 40, "bold"))
         self.current_patient_label.pack(pady=20)
 
@@ -196,6 +215,8 @@ class Patient_Management_System:
         self.check_pending_list = tk.Toplevel(self.root)
         self.check_pending_list.title("Pending Patients")
         self.check_pending_list.geometry("750x600")
+
+        self.set_background(self.check_pending_list)
 
         self.check_pending_label = tk.Label(self.check_pending_list, text="Check Pending Patients", font=("Times New Roman", 45, "bold"))
         self.check_pending_label.pack(pady=20)
@@ -228,6 +249,8 @@ class Patient_Management_System:
         self.pending_list_is_full = tk.Toplevel(self.root)
         self.pending_list_is_full.title("Patient Capacity")
         self.pending_list_is_full.geometry("750x570")
+
+        self.set_background(self.pending_list_is_full)
 
         self.pending_is_full_label = tk.Label(self.pending_list_is_full, text="Patient Capacity", font=("Times New Roman", 40, "bold"))
         self.pending_is_full_label.pack(pady=20)
