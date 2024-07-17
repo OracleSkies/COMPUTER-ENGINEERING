@@ -10,7 +10,7 @@ class LinkedList:
     def is_empty(self):
         return self.head is None
 
-    def append(self, data):
+    def append(self, data): #insert at end
         new_node = Node(data)
         if self.is_empty():
             self.head = new_node
@@ -20,7 +20,7 @@ class LinkedList:
             last_node = last_node.next
         last_node.next = new_node
 
-    def prepend(self, data):
+    def prepend(self, data): #insert at beginning
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
@@ -98,3 +98,19 @@ class LinkedList:
             print(current.data, end=" -> ")
             current = current.next
         print("None")
+
+link = LinkedList()
+link.append(60)
+link.append(70)
+link.append(80)
+link.append(90)
+link.prepend(59)
+link.delete_node(59)
+link.delete_node_at_position(2) #uses index
+print(link.length())
+link.reverse()
+link.print_list()
+print(link.search(75))
+print(link.search(80))
+print(link.search(70))
+
