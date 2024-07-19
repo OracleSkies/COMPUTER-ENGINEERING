@@ -40,7 +40,39 @@ class LinkedList:
         next_node = temp.next.next
         temp.next = None
         temp.next = next_node
-
+    
+    def delete_node(self, key):
+        temp = self.head
+        if temp and temp.data == key:
+            self.head = temp.next
+            temp = None
+            return
+        prev = None
+        while temp and temp.data != key:
+            prev = temp
+            temp = temp.next
+        if temp is None:
+            return
+        prev.next = temp.next
+        temp = None
+    
+    def search(self, key):
+        current = self.head
+        while current:
+            if current.data == key:
+                return True
+            current = current.next
+        return False
+    
+    def displayName(self, key):
+        current = self.head
+        while current:
+            if current.data == key:
+                return current.data
+            current = current.next
+        else:
+            return "Patient does not exist"
+    
     def length(self): #returns the current lenght of the list
         count = 0
         current = self.head
@@ -65,9 +97,7 @@ class LinkedList:
         while current:
             nodes.append(current.data)
             current = current.next
-        return nodes
-
-        
+        return nodes 
 
 class Patient_Management_System:
     def __init__(self, root):
@@ -137,7 +167,7 @@ class Patient_Management_System:
         self.add_patient_labelframe.columnconfigure(0, weight=1)
         self.add_patient_labelframe.columnconfigure(1, weight=1)
 
-        self.add_patient_input_text = tk.Entry(self.add_patient_labelframe, font=("Time New Roman", 35))
+        self.add_patient_input_text = tk.Entry(self.add_patient_labelframe, font=("Times New Roman", 35))
         self.add_patient_input_text.grid(row=0, column=0, columnspan=2, pady=5, padx=10, sticky=tk.W+tk.E)
 
         self.button_add_patient_confirm = tk.Button(self.add_patient_labelframe, text="Confirm", font=("Times New Roman", 25, "bold"), command= lambda: self.confirm_add_patient(self.add_patient_input_text.get()))
@@ -149,14 +179,16 @@ class Patient_Management_System:
     def confirm_add_patient(self,patient):
         if self.link.isFull():
             messagebox.showinfo("Confirmation", "Patient capacity is full!")
+            self.add_patient_window.destroy()
             return
         self.link.append(patient)
         messagebox.showinfo("Confirmation", f"{patient} added successfully!")
+        self.add_patient_window.destroy()
 
     def open_serve_patient_window(self):
         self.serve_patient_window = tk.Toplevel(self.root)
         self.serve_patient_window.title("Serve Patient")
-        self.serve_patient_window.geometry("800x400")
+        self.serve_patient_window.geometry("750x570")
 
         self.set_background(self.serve_patient_window)
 
@@ -164,7 +196,7 @@ class Patient_Management_System:
         self.serve_patient_label.pack(pady=20)
 
         self.serve_patient_labelframe = tk.LabelFrame(self.serve_patient_window, text="Serving Patient", font=("Times New Roman", 15, "bold"))
-        self.serve_patient_labelframe.pack(fill='x', padx=20, pady=20)
+        self.serve_patient_labelframe.pack(fill = 'x', padx=20, pady=20)
 
         self.serve_patient_labelframe.columnconfigure(0, weight=1)
         self.serve_patient_labelframe.columnconfigure(1, weight=1)
@@ -178,6 +210,29 @@ class Patient_Management_System:
         self.serve_backButton = tk.Button(self.serve_patient_labelframe, text="Back", font=("Times New Roman", 25, "bold"), command=self.serve_patient_window.destroy)
         self.serve_backButton.grid(row=1, column=1, padx=15, pady=5, sticky=tk.W+tk.E)
 
+        #================== SECOND LABEL FRAME ========================
+
+        self.search_serve_patient_labelframe = tk.LabelFrame(self.serve_patient_window, text="Search Patient", font=("Times New Roman", 15, "bold"))
+        self.search_serve_patient_labelframe.pack(padx=0, pady=0)
+
+        self.searchServePatientEntry = tk.Entry(self.search_serve_patient_labelframe, font = ("Times New Roman", 35))
+        self.searchServePatientEntry.grid(row = 0, column = 0, padx = 15, pady = 5,sticky=tk.W+tk.E )
+
+        self.button_serve_search_patient_confirm = tk.Button(self.search_serve_patient_labelframe, text="Serve", font=("Times New Roman", 25, "bold"), command = lambda: self.confirmSearchServePatient(self.searchServePatientEntry.get())) 
+        self.button_serve_search_patient_confirm.grid(row=0, column=1, padx=15, pady=5, sticky=tk.W+tk.E)
+
+        self.search_serve_patient_labelframe.columnconfigure(0, weight=1)
+        self.search_serve_patient_labelframe.columnconfigure(1, weight=1)
+
+    def confirmSearchServePatient(self,name):
+        if self.link.search(name):
+            self.link.delete_node(name)
+            messagebox.showinfo("Confirmation", f"{name} was served successfully!")
+            self.serve_patient_input_text.config(text= f"{self.link.listHead()}")
+            self.serve_patient_window.destroy()
+        else:
+            messagebox.showinfo("Patient Name Error", f"There is no patient named {name} in the facility")
+            
     def confirm_serve_patient(self):
         if self.link.head:
             messagebox.showinfo("Confirmation", f"{self.link.listHead()} was served successfully!")
@@ -218,10 +273,26 @@ class Patient_Management_System:
 
         self.set_background(self.check_pending_list)
 
-        self.check_pending_label = tk.Label(self.check_pending_list, text="Check Pending Patients", font=("Times New Roman", 45, "bold"))
+        self.check_pending_label = tk.Label(self.check_pending_list, text="Pending Patients", font=("Times New Roman", 45, "bold"))
         self.check_pending_label.pack(pady=20)
+        
+        #======= First Label Frame =========
 
-        self.check_pending_labelframe = tk.LabelFrame(self.check_pending_list, text="Pending Patients", font=("Times New Roman", 15, "bold"))
+        self.search_patient_labelframe = tk.LabelFrame(self.check_pending_list, text="Search Patient", font=("Times New Roman", 12, "bold"))
+        self.search_patient_labelframe.pack(fill = 'x',padx=20, pady=20)
+
+        self.searchPatientEntry = tk.Entry(self.search_patient_labelframe, font = ("Times New Roman", 15))
+        self.searchPatientEntry.grid(row = 0, column = 0, padx = 15, pady = 5,sticky=tk.W+tk.E)
+
+        self.button_serve_search_patient_confirm = tk.Button(self.search_patient_labelframe, text="Search", font=("Times New Roman", 12, "bold"), command = lambda: showSearchedPatient(self.searchPatientEntry.get())) 
+        self.button_serve_search_patient_confirm.grid(row=0, column=1, padx=15, pady=5,sticky=tk.W+tk.E)
+
+        self.search_patient_labelframe.columnconfigure(0, weight=1)
+        self.search_patient_labelframe.columnconfigure(1, weight=1)
+
+        #======= Second Label Frame =====
+
+        self.check_pending_labelframe = tk.LabelFrame(self.check_pending_list, text="Pending Patients List", font=("Times New Roman", 15, "bold"))
         self.check_pending_labelframe.pack(fill='x', padx=20, pady=20)
 
         self.check_pending_labelframe.columnconfigure(0, weight=1)
@@ -229,8 +300,12 @@ class Patient_Management_System:
 
         
         # Adding a label inside the labelframe
-        self.pending_patient_info_label = tk.Label(self.check_pending_labelframe, text= "", font=("Times New Roman", 20))
+        self.pending_patient_info_label = tk.Label(self.check_pending_labelframe, text= "", font=("Times New Roman", 15))
         self.pending_patient_info_label.grid(row=0, column=0, columnspan=2, pady=5, padx=10, sticky=tk.W+tk.E)
+
+        # Adding the back button under the labelframe
+        self.pending_patient_back_button = tk.Button(self.check_pending_list, text="Back", font=("Times New Roman", 25, "bold"), command=self.check_pending_list.destroy)
+        self.pending_patient_back_button.pack(pady=20)
         
         def showPatients(): #Configures the label to show all pending patients
             if not self.link.head:
@@ -238,12 +313,14 @@ class Patient_Management_System:
                 return
             nodes = self.link.displayPatients()
             self.pending_patient_info_label.config(text= "\n".join(map(str,nodes)))
-        
-        showPatients()
 
-        # Adding the back button under the labelframe
-        self.pending_patient_back_button = tk.Button(self.check_pending_list, text="Back", font=("Times New Roman", 25, "bold"), command=self.check_pending_list.destroy)
-        self.pending_patient_back_button.pack(pady=20)
+        def showSearchedPatient(name):
+            if self.link.search(name):
+                self.pending_patient_info_label.config(text= f"{self.link.displayName(name)}")
+            else:
+                messagebox.showinfo("Patient Name Error", f"There is no patient named {name} in the facility")
+
+        showPatients()
 
     def open_if_pending_full_window(self):
         self.pending_list_is_full = tk.Toplevel(self.root)
