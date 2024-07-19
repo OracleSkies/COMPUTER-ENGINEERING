@@ -41,7 +41,7 @@ class LinkedList:
         temp.next = None
         temp.next = next_node
     
-    def delete_node(self, key):
+    def delete_node(self, key): #Deletes node of a specific key
         temp = self.head
         if temp and temp.data == key:
             self.head = temp.next
@@ -56,7 +56,7 @@ class LinkedList:
         prev.next = temp.next
         temp = None
     
-    def search(self, key):
+    def search(self, key): #Searches node with a specific key. Returns true if the key exists
         current = self.head
         while current:
             if current.data == key:
@@ -64,7 +64,7 @@ class LinkedList:
             current = current.next
         return False
     
-    def displayName(self, key):
+    def displayName(self, key): #returns the key if it exist
         current = self.head
         while current:
             if current.data == key:
@@ -249,7 +249,7 @@ class Patient_Management_System:
 
         self.set_background(self.current_patient_window)
 
-        self.current_patient_label = tk.Label(self.current_patient_window, text="Check Current Patient", font=("Times New Roman", 40, "bold"))
+        self.current_patient_label = tk.Label(self.current_patient_window, text="Current Patient", font=("Times New Roman", 40, "bold"))
         self.current_patient_label.pack(pady=20)
 
         self.current_patient_labelframe = tk.LabelFrame(self.current_patient_window, text="Current Patient", font=("Times New Roman", 15, "bold"))
