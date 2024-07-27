@@ -132,12 +132,29 @@ nameList = []
 nameList.extend(jomer)
 nameList.extend(joph)
 nameList.extend(inay)
-testList = ["J","J","J","O","O","O"]
+
+
+testList = []
+testList.extend(jomer)
 endList = []
 
 
+for letter in nameList:
+    if letter not in endList:
+        endList.append(letter)
+        graph.add_vertex(letter)
+    else:
+        newLetter = letter + str(endList.count(letter))
+        if newLetter not in endList:
+            endList.append(newLetter)
+            graph.add_vertex(newLetter)
+        else:
+            endList.append(newLetter+str(endList.count(letter)+1))
+            graph.add_vertex(newLetter+str(endList.count(letter)+1))
 
+print(graph.graph)
 
+'''
 #print(nameList)
 counter = 0
 for letter in testList:
@@ -151,12 +168,12 @@ for letter in testList:
         #print(counter)
         counter = 0
 
-print(endList)
+#print(endList)
 
 
         
     
-#print(graph.graph)
+#print(graph.graph)'''
 
 
 
