@@ -100,30 +100,9 @@ class Graph:
                 return True
         return False
 
-class Node:
-    def __init__(self, data=None):
-        self.data = data
-        self.next = None
 
-class LinkedList:
-    def __init__(self):
-        self.head = None
-
-    def append(self, data): #insert at end
-        new_node = Node(data)
-        if self.is_empty():
-            self.head = new_node
-            return
-        last_node = self.head
-        while last_node.next:
-            last_node = last_node.next
-        last_node.next = new_node    
 ### Output
 graph = Graph()
-link = LinkedList()
-
-
-#print(graph.dfs("J"))
 
 jomer = "JOMERJOHNLEJANODONASCO"
 joph = "JOPHANTHONYGARAGARAMANOSCA"
@@ -132,48 +111,41 @@ nameList = []
 nameList.extend(jomer)
 nameList.extend(joph)
 nameList.extend(inay)
+counts = {}
 
 
-testList = []
-testList.extend(jomer)
-endList = []
-
-
-for letter in nameList:
-    if letter not in endList:
-        endList.append(letter)
-        graph.add_vertex(letter)
-    else:
-        newLetter = letter + str(endList.count(letter))
-        if newLetter not in endList:
-            endList.append(newLetter)
-            graph.add_vertex(newLetter)
+def addVertexLoop(names,counter):
+    for letter in names:
+        count = counter.get(letter,0)
+        if count == 0:
+            graph.add_vertex(letter)
         else:
-            endList.append(newLetter+str(endList.count(letter)+1))
-            graph.add_vertex(newLetter+str(endList.count(letter)+1))
+            graph.add_vertex(letter + str(count))
+        counter[letter] = count + 1
 
-print(graph.graph)
+def addEdgeLoop(vertices):
+    for index in range(len(vertices) - 1):
+        vertex = vertices[index]
+        nextVertex = vertices[index + 1]
+        graph.add_edge(vertex, nextVertex)
 
-'''
-#print(nameList)
-counter = 0
-for letter in testList:
-    if letter not in endList:
-        endList.append(letter)
-        #graph.add_vertex(letter)
-    else:
-        for letter in endList:
-            counter += 1
-            endList.append(letter + str(counter))
-        #print(counter)
-        counter = 0
+def numberRemove(array):
+    output = []
+    for element in array:
+        output.append(element[0])
+    return output
 
-#print(endList)
+addVertexLoop(nameList,counts)
+vertexList = list(graph.graph.keys())
+addEdgeLoop(vertexList)
+
+#print(graph.graph)
+print(numberRemove(graph.bfs(vertexList[0])))
+print()
+print(numberRemove(graph.dfs(vertexList[0])))
 
 
-        
-    
-#print(graph.graph)'''
+
 
 
 
