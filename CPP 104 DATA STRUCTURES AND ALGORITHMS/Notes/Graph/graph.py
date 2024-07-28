@@ -100,7 +100,6 @@ class Graph:
                 return True
         return False
 
-
 ### Output
 graph = Graph()
 
@@ -113,7 +112,6 @@ nameList.extend(joph)
 nameList.extend(inay)
 counts = {}
 
-
 def addVertexLoop(names,counter):
     for letter in names:
         count = counter.get(letter,0)
@@ -123,11 +121,20 @@ def addVertexLoop(names,counter):
             graph.add_vertex(letter + str(count))
         counter[letter] = count + 1
 
-def addEdgeLoop(vertices):
-    for index in range(len(vertices) - 1):
-        vertex = vertices[index]
-        nextVertex = vertices[index + 1]
-        graph.add_edge(vertex, nextVertex)
+def addBFSEdge(vertices):
+    root = vertices[0]
+    stack = [root]
+    i = 1
+
+    while stack and i < len(vertices):
+        current = stack.pop(0)
+        children = 2
+        for _ in range(children):
+            if i < len(vertices):
+                child = vertices[i]
+                graph.add_edge(current, child)
+                stack.append(child)
+                i += 1
 
 def numberRemove(array):
     output = []
@@ -137,12 +144,15 @@ def numberRemove(array):
 
 addVertexLoop(nameList,counts)
 vertexList = list(graph.graph.keys())
-addEdgeLoop(vertexList)
 
 #print(graph.graph)
+
+addBFSEdge(vertexList)
 print(numberRemove(graph.bfs(vertexList[0])))
 print()
 print(numberRemove(graph.dfs(vertexList[0])))
+
+
 
 
 
