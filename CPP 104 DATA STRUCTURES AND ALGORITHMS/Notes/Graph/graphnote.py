@@ -148,5 +148,15 @@ vertices = list(graph.graph.keys())
 addBFSEdge(vertices)
 
 #print(graph.graph)
-print(graph.bfs(vertices[0]))
+#print(graph.bfs(vertices[0]))
 #print(graph.dfs("A"))
+
+def pyramidPrint(rows):
+
+  # Upper half of the diamond
+  for i in range(rows):
+    spaces = " " * (rows - i - 1)
+    stars =  vertices[i] * (2 * i + 1)
+    print(spaces + stars)
+
+pyramidPrint(7)

@@ -1,3 +1,4 @@
+from icecream import ic
 class Graph:
     def __init__(self):
         self.graph = {}
@@ -121,20 +122,108 @@ def addVertexLoop(names,counter):
             graph.add_vertex(letter + str(count))
         counter[letter] = count + 1
 
-def addBFSEdge(vertices):
-    root = vertices[0]
+def addBFSEdge():
+    graph.graph.clear()
+    addVertexLoop(nameList,counts)
+    vertexList = list(graph.graph.keys())
+    root = vertexList[0]
     stack = [root]
-    i = 1
+    count = 1
 
-    while stack and i < len(vertices):
+    while stack and count < len(vertexList):
         current = stack.pop(0)
         children = 2
         for _ in range(children):
-            if i < len(vertices):
-                child = vertices[i]
+            if count < len(vertexList):
+                child = vertexList[count]
                 graph.add_edge(current, child)
                 stack.append(child)
-                i += 1
+                count += 1
+    
+    output = numberRemove(graph.bfs(vertexList[0]))
+    return output
+
+def addDFSEdge():
+    graph.graph.clear()
+    counts.clear()
+    addVertexLoop(nameList,counts)
+    vertexList = list(graph.graph.keys())
+    #JOMER
+    graph.add_edge("J","R2")
+    graph.add_edge("J","O")
+    graph.add_edge("O","P")
+    graph.add_edge("O","M")
+    graph.add_edge("M","N2")
+    graph.add_edge("M","E")
+    graph.add_edge("E","J2")
+    graph.add_edge("E","R")
+    graph.add_edge("R","N")
+    graph.add_edge("R","J1")
+    graph.add_edge("J1","H")
+    graph.add_edge("J1","O1")
+    graph.add_edge("N","E1")
+    graph.add_edge("N","L")
+    graph.add_edge("J2","D")
+    graph.add_edge("J2","A")
+    graph.add_edge("A","O2")
+    graph.add_edge("A","N1")
+    graph.add_edge("D","O3")
+    graph.add_edge("N2","O4")
+    graph.add_edge("N2","A1")
+    graph.add_edge("A1","C")
+    graph.add_edge("A1","S")
+
+    #JOPH
+    graph.add_edge("O4","O5")
+    graph.add_edge("O4","J3")
+    graph.add_edge("P","Y")
+    graph.add_edge("P","H1")
+    graph.add_edge("H1","H2")
+    graph.add_edge("H1","A2")
+    graph.add_edge("A2","T")
+    graph.add_edge("A2","N3")
+    graph.add_edge("H2","N4")
+    graph.add_edge("H2","O6")
+    graph.add_edge("Y","A4")
+    graph.add_edge("Y","G")
+    graph.add_edge("G","R1")
+    graph.add_edge("G","A3")
+    graph.add_edge("A4","A5")
+    graph.add_edge("A4","G1")
+    graph.add_edge("R2","A9")
+    graph.add_edge("R2","A6")
+    graph.add_edge("A6","C2")
+    graph.add_edge("A6","M1")
+    graph.add_edge("M1","S1")
+    graph.add_edge("M1","A7")
+    graph.add_edge("A7","O7")
+    graph.add_edge("A7","N5")
+    graph.add_edge("S1","A8")
+    graph.add_edge("S1","C1")
+
+    #INAY
+    graph.add_edge("C2","S2")
+    graph.add_edge("C2","H3")
+    graph.add_edge("H3","I")
+    graph.add_edge("H3","R3")
+    graph.add_edge("S2","I1")
+    graph.add_edge("S2","T1")
+    graph.add_edge("A9","U")
+    graph.add_edge("A9","N6")
+    graph.add_edge("N6","T2")
+    graph.add_edge("N6","B")
+    graph.add_edge("B","N7")
+    graph.add_edge("B","A10")
+    graph.add_edge("T2","C3")
+    graph.add_edge("T2","A11")
+    graph.add_edge("U","N8")
+    graph.add_edge("U","L1")
+    graph.add_edge("L1","I2")
+    graph.add_edge("L1","O8")
+    graph.add_edge("N8","Y1")
+    graph.add_edge("N8","A12")
+    output = numberRemove(graph.dfs(vertexList[0]))
+    return output
 
 def numberRemove(array):
     output = []
@@ -142,20 +231,8 @@ def numberRemove(array):
         output.append(element[0])
     return output
 
-addVertexLoop(nameList,counts)
-vertexList = list(graph.graph.keys())
-
-#print(graph.graph)
-
-addBFSEdge(vertexList)
-print(numberRemove(graph.bfs(vertexList[0])))
+print("===BREADTH FIRST SEARCH===")
+print(addBFSEdge())
 print()
-print(numberRemove(graph.dfs(vertexList[0])))
-
-
-
-
-
-
-
-
+print("===DEPTH FIRST SEARCH===")
+print(addDFSEdge())

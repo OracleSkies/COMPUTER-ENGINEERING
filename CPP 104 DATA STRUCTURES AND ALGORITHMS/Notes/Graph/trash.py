@@ -1,3 +1,4 @@
+from icecream import ic
 class Graph:
     def __init__(self):
         self.graph = {}
@@ -102,10 +103,184 @@ class Graph:
     
 
 graph = Graph()
+jomer = "JOMERJOHNLEJANODONASCO"
+joph = "JOPHANTHONYGARAGARAMANOSCA"
+inay = "CHRISTIANBANTACULOINAY"
+nameList = []
+nameList.extend(jomer)
+nameList.extend(joph)
+nameList.extend(inay)
+counts = {}
 
-graph.add_vertex("A")
-graph.add_vertex("B")
-graph.add_vertex("C")
-graph.add_edge("A","B")
-graph.add_edge("A","C")
-print(graph.graph)
+def addVertexLoop(names,counter):
+    for letter in names:
+        count = counter.get(letter,0)
+        if count == 0:
+            graph.add_vertex(letter)
+        else:
+            graph.add_vertex(letter + str(count))
+        counter[letter] = count + 1
+
+addVertexLoop(nameList, counts)
+
+#print(graph.graph)
+def things():
+    graph.add_vertex("A")
+    graph.add_vertex("B")
+    graph.add_vertex("C")
+    graph.add_vertex("D")
+    graph.add_vertex("E")
+    graph.add_vertex("F")
+    graph.add_vertex("G")
+    graph.add_vertex("H")
+    graph.add_vertex("I")
+    graph.add_vertex("J")
+    graph.add_vertex("K")
+    graph.add_vertex("L")
+    graph.add_vertex("M")
+    graph.add_vertex("N")
+    graph.add_vertex("O")
+
+
+    graph.add_edge("A","B")
+    graph.add_edge("A","C")
+    graph.add_edge("B","D")
+    graph.add_edge("B","E")
+    graph.add_edge("C","F")
+    graph.add_edge("C","G")
+    graph.add_edge("D","H")
+    graph.add_edge("D","I")
+    graph.add_edge("E","J")
+    graph.add_edge("E","K")
+    graph.add_edge("F","L")
+    graph.add_edge("F","M")
+
+
+    print(graph.dfs("A"))
+
+def numberRemove(array):
+    output = []
+    for element in array:
+        output.append(element[0])
+    return output
+
+def DFS():
+
+    #JOMER
+    graph.add_edge("J","R2")
+    graph.add_edge("J","O")
+    graph.add_edge("O","P")
+    graph.add_edge("O","M")
+    graph.add_edge("M","N2")
+    graph.add_edge("M","E")
+    graph.add_edge("E","J2")
+    graph.add_edge("E","R")
+    graph.add_edge("R","N")
+    graph.add_edge("R","J1")
+    graph.add_edge("J1","H")
+    graph.add_edge("J1","O1")
+    graph.add_edge("N","E1")
+    graph.add_edge("N","L")
+    graph.add_edge("J2","D")
+    graph.add_edge("J2","A")
+    graph.add_edge("A","O2")
+    graph.add_edge("A","N1")
+    graph.add_edge("D","O3")
+    graph.add_edge("N2","O4")
+    graph.add_edge("N2","A1")
+    graph.add_edge("A1","C")
+    graph.add_edge("A1","S")
+
+    #JOPH
+    graph.add_edge("O4","O5")
+    graph.add_edge("O4","J3")
+    graph.add_edge("P","Y")
+    graph.add_edge("P","H1")
+    graph.add_edge("H1","H2")
+    graph.add_edge("H1","A2")
+    graph.add_edge("A2","T")
+    graph.add_edge("A2","N3")
+    graph.add_edge("H2","N4")
+    graph.add_edge("H2","O6")
+    graph.add_edge("Y","A4")
+    graph.add_edge("Y","G")
+    graph.add_edge("G","R1")
+    graph.add_edge("G","A3")
+    graph.add_edge("A4","A5")
+    graph.add_edge("A4","G1")
+
+    graph.add_edge("R2","A9")
+    graph.add_edge("R2","A6")
+    graph.add_edge("A6","C2")
+    graph.add_edge("A6","M1")
+    graph.add_edge("M1","S1")
+    graph.add_edge("M1","A7")
+    graph.add_edge("A7","O7")
+    graph.add_edge("A7","N5")
+    graph.add_edge("S1","A8")
+    graph.add_edge("S1","C1")
+
+    #INAY
+    graph.add_edge("C2","S2")
+    graph.add_edge("C2","H3")
+    graph.add_edge("H3","I")
+    graph.add_edge("H3","R3")
+    graph.add_edge("S2","I1")
+    graph.add_edge("S2","T1")
+    graph.add_edge("A9","U")
+    graph.add_edge("A9","N6")
+    graph.add_edge("N6","T2")
+    graph.add_edge("N6","B")
+    graph.add_edge("B","N7")
+    graph.add_edge("B","A10")
+    graph.add_edge("T2","C3")
+    graph.add_edge("T2","A11")
+    graph.add_edge("U","N8")
+    graph.add_edge("U","L1")
+    graph.add_edge("L1","I2")
+    graph.add_edge("L1","O8")
+    graph.add_edge("N8","Y1")
+    graph.add_edge("N8","Y1")
+
+
+
+
+
+    
+    graph.add_edge("","")
+    #print(numberRemove(list(graph.dfs("J"))))
+    print(graph.dfs("J"))
+    print("=====================")
+    #print(graph.graph)
+
+'''def DFS():
+    graph.add_edge("J","R2")
+    graph.add_edge("J","O")
+    graph.add_edge("O","M")
+    graph.add_edge("O","P")
+    graph.add_edge("M","N2")
+    graph.add_edge("M","E")
+    graph.add_edge("E","J2")
+    graph.add_edge("E","R")
+    graph.add_edge("R","N")
+    graph.add_edge("R","J1")
+    graph.add_edge("J1","H1")
+    graph.add_edge("J1","O1")
+    graph.add_edge("N","E1")
+    graph.add_edge("N","L")
+    graph.add_edge("J2","D")
+    graph.add_edge("J2","A")
+    graph.add_edge("A","O2")
+    graph.add_edge("A","N1")
+    graph.add_edge("D","O3")
+    graph.add_edge("N2","O4")
+    graph.add_edge("N2","A1")
+    graph.add_edge("A1","C")
+    graph.add_edge("A1","S")
+    graph.add_edge("O4","O5")
+    graph.add_edge("O4","J3")
+    graph.add_edge("P","Y")
+    graph.add_edge("P","H1")
+    '''
+
+DFS()
