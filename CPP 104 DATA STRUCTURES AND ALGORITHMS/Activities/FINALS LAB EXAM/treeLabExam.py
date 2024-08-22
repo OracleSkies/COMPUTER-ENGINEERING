@@ -1,6 +1,34 @@
 import tkinter as tk
 from tkinter import messagebox
 
+class Node:
+    def __init__(self, key):
+        self.val = key
+        self.children = []
+
+def add_child(root, key):
+    child = Node(key)
+    root.children.append(child)
+    return child
+
+def preorder(root):
+    result = []
+    def traverse(node):
+        result.append(str(node.val))
+        for child in node.children:
+            traverse(child)
+    traverse(root)
+    return ' -> '.join(result)
+
+def postorder(root):
+    result = []
+    for child in root.children:
+        result.append(postorder(child))
+    result.append(str(root.val))
+    return ' -> '.join(result)
+
+
+
 class Interface:
     def __init__(self, root):
         self.root = root
@@ -11,10 +39,6 @@ class Interface:
         main_label.grid(row=0, column=1, pady=20)
 
         button_width = 20  # Set a fixed width for all buttons
-
-        add_employee = tk.Button(self.root, text="Add Employee", font=("Times New Roman", 30), width=button_width, command=self.open_add_employee_window)
-        add_employee.grid(row=1, column=1, pady=10)
-
         pre_order_button = tk.Button(self.root, text="Pre-Order Traversal", font=("Times New Roman", 30), width=button_width, command=self.pre_order_messagebox)
         pre_order_button.grid(row=2, column=1, pady=10)
 
@@ -54,14 +78,32 @@ class Interface:
         back_button.pack(pady=20, padx=20)
 
     def pre_order_messagebox(self):
-        messagebox.showinfo("Pre-Order Traversal", "This will perform a pre-order traversal.")
+        preTrav = preorder(ceo)
+        messagebox.showinfo("Pre-Order Traversal", preTrav)
 
     def in_order_messagebox(self):
-        messagebox.showinfo("In-Order Traversal", "This will perform an in-order traversal.")
+        messagebox.showinfo("In-Order Traversal", "In-Order Traversal is currently unavailable in this Tree")
 
     def post_order_messagebox(self):
-        messagebox.showinfo("Post-Order Traversal", "This will perform a post-order traversal.")
+        postTrav = postorder(ceo)
+        messagebox.showinfo("Post-Order Traversal", postTrav)
+
+ceo = Node("Engr. Carlo")
+mng1 = add_child(ceo, "Bob")
+mng2 = add_child(ceo, "Eve")
+mng3 = add_child(ceo, "Hannah")
+add_child(mng1, "Beth")
+add_child(mng1, "Allieson")
+add_child(mng2, "Kennedick")
+add_child(mng2, "Garcia")
+add_child(mng3, "Ian")
+add_child(mng3, "Franchesca")
+
+preorder(ceo)
+print()
+postorder(ceo)
 
 root = tk.Tk()
 interface = Interface(root)
 root.mainloop()
+
