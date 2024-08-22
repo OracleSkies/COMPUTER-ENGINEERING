@@ -6,6 +6,11 @@ class Node:
     def numChild(self):
         return len(self.children)
 
+def minChild(root):
+    node = Node(root)
+    minVal = node.numChild()
+    for child in node.children:
+        minVal = min(minVal,)
 def add_child(root, key):
     child = Node(key)
     root.children.append(child)
@@ -44,10 +49,9 @@ def find_minimum(root):
     return min_val
 
 def find_maximum(root):
-    num = Node(root)
     max_val = root.val
     for child in root.children:
-        max_val = max(max_val, num.numChild())
+        max_val = max(max_val, find_maximum(child))
     return max_val
 
 def is_balanced(root):
